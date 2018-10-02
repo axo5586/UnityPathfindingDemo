@@ -1,0 +1,78 @@
+Final Project: Enviromental Simulation of a Valley
+
+Andy Ong
+
+Description of World:
+The world I created is a valley with a waterfall, trees, mountains, and hills. It's just an outdoor enviroment with various animals doing their own things.
+The animals / objects within the scene that utilize the algorithms are a sheep(that follows a path of grass to eat from), ducks(that fly around 
+in the scene and use flocking), and butterflies(that follow a flowfield that goes towards the center of the world towards the center of trees).
+The resist field that is used is the waterfall, and if the ducks go near it, they are resisted and will go another direction.
+
+World Exploration:
+
+The world is viewed through different camera angles which can be toggled.
+The user can press C to change camera views and any time.
+
+There are 5 cameras in total: 
+1. An overview of the valley.
+2. A camera that follows the sheep as it moves along its path eating grass.
+3. A first person view from a flocking bird.
+4. A closeup of the trees and will show the butterflies go towards it in the beginning of the scene.
+5. Closeup of the waterfall that acts as the resist field.
+
+---------------------------------------------------Steering Behaviors-------------------------------------------------------
+Flocking:
+The ducks in my scene are the flockers and they continously just follow each other and have a seperation force from one another. They utilize the cohesion,
+alignment, and seperation forces which are weighed to make the movement look better. When a duck goes next to another one, they'll tend to stay together.
+
+Path Following:
+The sheep in my scene in the path follower and it goes towards bushes to eat them. The bushes disappear about 4 seconds after the sheep moves there to simulate the 
+slow eating of the sheep. The sheep also stays at a bush for 5 seconds to make this movement more realistic. It goes around a circle of bushes as its path and by doing 
+the path of the sheep this way, the path is easy to reason with; a sheep is grazing and looking for food so it goes towards bushes in the middle of the valley.
+
+Flow Field Following:
+The butterflies in the enviroment are the flowfield followers. Upon the scene starting up, butterflies are randomly instantiated within the world. 
+They immediately follow a flow field because the flowfield spans the entire terrain/enviroment that centers towards the 
+middle of the valley where there are a bunch of trees. This makes it so the butterflies gravitate towards the trees/vegetation where butterflies 
+naturally wander towards to collect pollen. The debug field for the flowfield was not very clear on where it flow towards, so I just made the center line
+the debug line for the flowfield vectors because they all point towards it. My flowfield vectors were calculated using algorithms listed on the powerpoint slide;
+a nested set of loops that populates a 2D array which creates all the vectors. The height / length of the terrain were sampled and used as the entire field so
+it spans the entire terrain. The butterflies get the flow direction by locating the future position(x and z coordinates) of the butterfly and gets the field array vector
+at that location and finding the desired velocity by subtracting the butterfly's ahead coordinate from the direction vector in the flowfield and adding it to the butterfly's
+force. This makes is so the butterfly gravitates to where the flowfield vectors take it; in this case the middle of the enviroment.
+
+Area of Resistance:
+My area of resistance in this enviroment is the waterfall. Sometimes, since the ducks will wander around the entire valley and are bounded to it, it might go to the 
+corner of the valley where the waterfall is located. If the ducks' x and z coordinates fall to where the waterfall's general location is, the ducks are then resisted and
+will go the opposite direction since ducks aren't supposed to be flying towards waterfalls. 
+The area of resistance is generated using a flowfield that spans approximately 1/5 of the terrain's x and z coordinates. 
+
+Resources:
+The resources that were used for coding were loosely followed from and the general idea of how to program the algorithm was taken rather than the actual terms and such.
+For example, arrival from the resource utilizes a radius and if an object is within that radius they slow down. For my code for arrival, it was basically the same idea,
+except I used the distance of the object from the target position to gauge when to slow down. For the models, I took them and used them for the project and scaled them
+to fit my needs. The butterfly originally had an animation, but I removed it because it messed with its positioning within the scene.
+
+-----------------------------------------------------Coding--------------------------------
+Arrival: https://gamedevelopment.tutsplus.com/tutorials/understanding-steering-behaviors-flee-and-arrival--gamedev-1303
+Flow fields: https://mycourses.rit.edu/d2l/le/content/658459/viewContent/4815820/View
+Basically all steering algorithms(path following, camera changing, seek, flee): past resources and projects from class
+
+-----------------------------------------------------Textures--------------------------------
+Grass: https://images.homedepot-static.com/productImages/8c06b69c-10d3-4937-a86f-5e7cb258f6ac/svn/green-flat-needled-trafficmaster-texture-ca2748616pks-64_1000.jpg
+Water: https://st.depositphotos.com/1769826/2299/i/950/depositphotos_22996874-stock-photo-seamless-water-texture.jpg
+Rocky Path: http://2.bp.blogspot.com/-LX5DBM4E0o8/UazW2Qyug2I/AAAAAAAAEDU/b1l6m3d449U/s1600/Tileable+concrete+asphalt+road+floor+texture+(1).jpg
+Road Asphalt: https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/141322/1360/1360/m1/fpnw/wm1/t4u1gzpcyuwipf4fzecfdxezrcueixf3bnt72zejlc8sdag6ilxftddet7cjxxne-.jpg?1404985
+975&s=8560943c95c835f9a93ac668265badde
+
+-----------------------------------------------------Models--------------------------------
+Sheep: https://www.assetstore.unity3d.com/en/#!/content/97945
+Bird: https://www.assetstore.unity3d.com/en/#!/content/97945
+Grass/Bush: https://www.assetstore.unity3d.com/en/#!/content/52977
+Tree: https://www.assetstore.unity3d.com/en/#!/content/61874
+Butterfly: https://www.assetstore.unity3d.com/en/#!/content/58355
+
+Other:
+Butterflies move with the flowfield as soon as the application is ran, so you have to look for it as soon as it runs; otherwise the butterflies stop moving since they 
+already reached the middle of the flowfield where all the vectors go towards.
+
